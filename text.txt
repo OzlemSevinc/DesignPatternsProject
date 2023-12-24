@@ -1,0 +1,8 @@
+Antalya-Lara CompanyA 10:30 Mucize 30
+Eskisehir-Alpu CompanyB 10:30 Mucize 30
+Istanbul-Cekmekoy CompanyA 12:00 Mucize 30
+Antalya-Muratpasa CompanyA 14:00 Avengers 30
+Eskisehir-Sivrihisar CompanyA 16:00 Avengers 30
+Istanbul-Cekmekoy CompanyA 12:00 Mucize 30
+Antalya-Lara CompanyB 09:30 Mucize 30
+Eskisehir-Alpu CompanyA 13:00 Avengers 30

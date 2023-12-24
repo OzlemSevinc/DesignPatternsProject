@@ -1,9 +1,7 @@
 public abstract class Ticket {
     String description = " Ticket description";
 
-    public String getDescription() {
-        return description;
-    }
+    public abstract String getDescription();
 
     public abstract double cost();
 }
