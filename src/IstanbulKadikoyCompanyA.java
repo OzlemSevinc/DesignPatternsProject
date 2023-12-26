@@ -1,8 +1,8 @@
-public class Istanbul extends Ticket {
+public class IstanbulKadikoyCompanyA extends Ticket {
     String description;
     double cost;
 
-    public Istanbul(String location,double cost){
+    public IstanbulKadikoyCompanyA(String location,double cost){
         this.description = location + " Ticket : ";
         this.cost = cost;
 

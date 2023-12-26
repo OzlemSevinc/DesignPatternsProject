@@ -1,10 +1,11 @@
-public class Antalya extends Ticket {
+public class IstanbulKadikoyCompanyB extends Ticket {
     String description;
     double cost;
 
 
-    public Antalya(String location, double cost){
+    public IstanbulKadikoyCompanyB(String location, double cost){
         this.cost = cost;
+
         this.description = location+" Ticket : ";
 
     }

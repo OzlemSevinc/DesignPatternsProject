@@ -17,7 +17,6 @@ public class Main {
 
         ArrayList<String> time = new ArrayList<>();
         ArrayList<String> companysMovieNames = new ArrayList<>();
-        ArrayList<Float> costOfLocation = new ArrayList<>();
         Set<String> movieNames = new HashSet<>();
         ArrayList<Ticket> ticketCosts = new ArrayList<>();
 
@@ -30,7 +29,6 @@ public class Main {
             time.add(arrOfStr[2]);
             companysMovieNames.add(arrOfStr[3]);
             movieNames.add(arrOfStr[3]);
-            costOfLocation.add(Float.valueOf(arrOfStr[4]));
         }
 
 
@@ -51,22 +49,22 @@ public class Main {
 
 
                 if (choice == 1) {
-                    //1: Campany A 2: Company B
+                    //1: Company A 2: Company B
                     if (locCom.get(i).contains("Antalya")) {
-                        Ticket ticketAntalya = value.orderTicket(locCom.get(i), costOfLocation.get(i));
+                        Ticket ticketAntalya = value.orderTicket(locCom.get(i),0);
                         ticketCosts.add(ticketAntalya);
                         number = TicketList(number, ticketAntalya, time.get(i), companysMovieNames.get(i));
                     }
 
                 } else if (choice == 2) {
                     if (locCom.get(i).contains("Istanbul")) {
-                        Ticket ticketIstanbul = value.orderTicket(locCom.get(i), costOfLocation.get(i));
+                        Ticket ticketIstanbul = value.orderTicket(locCom.get(i), 0);
                         ticketCosts.add(ticketIstanbul);
                         number = TicketList(number, ticketIstanbul, time.get(i), companysMovieNames.get(i));
                     }
                 } else if (choice == 3) {
                     if (locCom.get(i).contains("Eskisehir")) {
-                        Ticket ticketEskisehir = value.orderTicket(locCom.get(i), costOfLocation.get(i));
+                        Ticket ticketEskisehir = value.orderTicket(locCom.get(i), 0);
                         ticketCosts.add(ticketEskisehir);
                         number = TicketList(number, ticketEskisehir, time.get(i), companysMovieNames.get(i));
                     }
@@ -91,18 +89,18 @@ public class Main {
                 if(beverageChoice == 0)
                     break;
                 System.out.println("How many do you want? ");
-                int many = sc.nextInt();
+                int amount = sc.nextInt();
 
                 if (beverageChoice == 1) {
-                    ticketCosts.add(ticketChoice-1,BuyingPopcorn(ticketCosts.get(ticketChoice-1), many));
+                    ticketCosts.add(ticketChoice-1,BuyingPopcorn(ticketCosts.get(ticketChoice-1), amount));
 
 
                 } else if (beverageChoice == 2) {
-                    ticketCosts.add(ticketChoice-1,BuyingSoda(ticketCosts.get(ticketChoice), many));
+                    ticketCosts.add(ticketChoice-1,BuyingSoda(ticketCosts.get(ticketChoice), amount));
 
 
                 } else if (beverageChoice == 3) {
-                    ticketCosts.add(ticketChoice-1,BuyingCandy(ticketCosts.get(ticketChoice), many));
+                    ticketCosts.add(ticketChoice-1,BuyingCandy(ticketCosts.get(ticketChoice), amount));
 
 
                 } else if (beverageChoice == 0) {
@@ -121,23 +119,23 @@ public class Main {
         }
     }
 
-    private static Ticket BuyingCandy(Ticket aFloat, int many) {
+    private static Ticket BuyingCandy(Ticket aFloat, int amount) {
 
-        for (int i = 0; i < many; i++) {
+        for (int i = 0; i < amount; i++) {
             aFloat = new Candy(aFloat);
         }
         return aFloat;
     }
 
-    private static Ticket BuyingSoda(Ticket aFloat, int many) {
-        for (int i = 0; i < many; i++) {
+    private static Ticket BuyingSoda(Ticket aFloat, int amount) {
+        for (int i = 0; i < amount; i++) {
             aFloat = new Soda(aFloat);
         }
         return aFloat;
     }
 
-    private static Ticket BuyingPopcorn(Ticket aFloat, int many) {
-        for (int i = 0; i < many; i++) {
+    private static Ticket BuyingPopcorn(Ticket aFloat, int amount) {
+        for (int i = 0; i < amount; i++) {
             aFloat = new Popcorn(aFloat);
         }
         return aFloat;
@@ -168,6 +166,8 @@ public class Main {
 
 
         return number;
+
+
     }
 
 /*
