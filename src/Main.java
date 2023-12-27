@@ -1,20 +1,29 @@
 import java.io.*;
 import java.util.*;
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
+//import com.google.common.collect.ArrayListMultimap;
+//import com.google.common.collect.Multimap;
 
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
-        File file = new File("text.txt");
+        String baseFileName = args[0];
+        // java Main C:\Users\dell\IdeaProjects\DesignPatternsProject\text.txt
+//text.txt
+        File file = new File(baseFileName);
+       // File file = new File("text.txt");
+
         Scanner sc = new Scanner(System.in);
         //Users: 1 'means' Admin, 2 'means' user
 
-        Multimap<Integer, String> threeElementMap = ArrayListMultimap.create();
+        ArrayList<String> threeElementMap = new ArrayList<>();
+        threeElementMap.add("1 asl");
+        threeElementMap.add("2 ozl Antalya");
+
+        //ArrayList<String>
 
         // Değer ekleme
-        threeElementMap.put(1, "2"); //asl@gmail.com
-        threeElementMap.put(2, "1 Antalya");  //ozl@gmail.com
+        //threeElementMap.put(1, "2"); //asl@gmail.com
+        //threeElementMap.put(2, "1 Antalya");  //ozl@gmail.com
 
        //javac Main.java
         //java Main
@@ -22,10 +31,7 @@ public class Main {
 
 
         /*
-        - TODO Observar pattern uygula +
-        - TODO Menüye ekle +
-        - TODO Konsolda bak mesela abone olanlar uyarılacak
-           ama abone olmayanlar uyarılmayacak +
+
         - TODO çift terminal dene
          */
         String city = "";
@@ -139,9 +145,19 @@ public class Main {
         }
     }
 
-    public static String usersCity(Multimap<Integer, String> txt, String email) {
-        Collection<String> values = txt.get(2);
+    public static String usersCity(ArrayList<String> txt, String email) {
 
+        for (int i = 0; i < txt.size(); i++) {
+            if(txt.get(i).contains("Antalya") && txt.get(i).contains(email)){
+                return "Antalya";
+
+            } else if (txt.get(i).contains("Istanbul")&& txt.get(i).contains(email)) {
+                return "Istanbul";
+            }
+
+        }
+        //Collection<String> values = txt.get(2);
+/*
         for (String value : values) {
             if (value.contains(email)) {
                 if (value.contains("Istanbul")) {
@@ -152,6 +168,8 @@ public class Main {
 
             }
         }
+        */
+
 
         return "Admin";
     }
@@ -174,7 +192,9 @@ public class Main {
 
                 CompanyStore value = FindCompany(locCom.get(i));
                 if (locCom.get(i).contains(city)) {
-                    printingMovieList(value,ticketCosts,locCom.get(i),movie,time.get(i),companysMovieNames.get(i),number);
+                    Ticket ticketAntalya = value.orderTicket(locCom.get(i), 0,movie);
+                    ticketCosts.add(ticketAntalya);
+                    number = TicketList(number, ticketAntalya, time.get(i), companysMovieNames.get(i));
 
 
 
@@ -240,13 +260,13 @@ public class Main {
     }
 
     private static Ticket BuyingCandy(Ticket aFloat, int amount) {
-        if(aFloat.description.contains("CompanyA")) {
+        if(aFloat.getDescription().contains("CompanyA")) {
 
             for (int i = 0; i < amount; i++) {
                 aFloat = new Candy(aFloat,10);
             }
         }
-        else if (aFloat.description.contains("CompanyB")){
+        else if (aFloat.getDescription().contains("CompanyB")){
             for (int i = 0; i < amount; i++) {
                 aFloat = new Candy(aFloat,15);
             }
@@ -255,13 +275,13 @@ public class Main {
     }
 
     private static Ticket BuyingSoda(Ticket aFloat, int amount) {
-        if(aFloat.description.contains("CompanyA")) {
+        if(aFloat.getDescription().contains("CompanyA")) {
 
             for (int i = 0; i < amount; i++) {
                 aFloat = new Soda(aFloat,20);
             }
         }
-        else if (aFloat.description.contains("CompanyB")){
+        else if (aFloat.getDescription().contains("CompanyB")){
             aFloat = new Soda(aFloat,15);
         }
 
@@ -269,12 +289,12 @@ public class Main {
     }
 
     private static Ticket BuyingPopcorn(Ticket aFloat, int amount) {
-        if(aFloat.description.contains("CompanyA")){
+        if(aFloat.getDescription().contains("CompanyA")){
             for (int i = 0; i < amount; i++) {
                 aFloat = new Popcorn(aFloat,50);
             }
         }
-        else if (aFloat.description.contains("CompanyB")){
+        else if (aFloat.getDescription().contains("CompanyB")){
             for (int i = 0; i < amount; i++) {
                 aFloat = new Popcorn(aFloat,60);
             }
