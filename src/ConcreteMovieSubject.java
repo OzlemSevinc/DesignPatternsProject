@@ -2,12 +2,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConcreteMovieSubject implements MovieSubject {
-    private List<MovieObserver> observers = new ArrayList<>();
-    private String city;
+    public List<MovieObserver> observers = new ArrayList<>();
+    private Boolean value = false;
 
 
-    public ConcreteMovieSubject(String city) {
-        this.city = city;
+    public ConcreteMovieSubject(Boolean value) {
+        this.value = value;
+
 
     }
 
@@ -22,9 +23,15 @@ public class ConcreteMovieSubject implements MovieSubject {
     }
 
     @Override
-    public void notifyObservers(String movieName, String city) {
-        for (MovieObserver observer : observers) {
-            observer.update(movieName, city);
+    public Boolean notifyObservers() {
+        if(value) {
+            for (MovieObserver observer : observers) {
+                observer.update();
+            }
         }
+        return value;
     }
+
+
+
 }

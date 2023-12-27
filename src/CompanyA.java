@@ -1,23 +1,20 @@
 public class CompanyA extends  CompanyStore{
-    private ConcreteMovieSubject movieSubject;
 
-    public CompanyB(String city) {
-        this.movieSubject = new ConcreteMovieSubject(city);
-    }
+
+
+
     @Override
-    Ticket createTicket(String city,double cost) {
+    Ticket createTicket(String city,double cost, MovieSubject movie) {
 
-        if(city.contains("Antalya-Alanya CompanyA")){
-            return new AntalyaAlanyaCompanyA(city,150,movieSubject );
+
+
+        if (city.contains("Antalya-Alanya CompanyA")) {
+                return new AntalyaAlanyaCompanyA(city, 150, movie);
+        } else if (city.contains("Istanbul-Kadikoy CompanyA")) {
+                return new IstanbulKadikoyCompanyA(city, 100, movie);
         }
-        else if(city.contains("Istanbul-Kadikoy CompanyA")){
-            return new IstanbulKadikoyCompanyA(city,100 ,movieSubject);
-        }
-        /*else if (city.contains("Antalya")){
-            return new Antalya(city,200 );
-        }*/
-        else {
-            return null;
-        }
+
+
+       return  null;
     }
 }

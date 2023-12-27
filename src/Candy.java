@@ -1,9 +1,11 @@
 public class Candy extends SnacksAndBeveragesDecorator{
 
     Ticket ticket;
+    double cost;
 
-    public Candy(Ticket ticket){
+    public Candy(Ticket ticket,double cost){
         this.ticket = ticket;
+        this.cost = cost;
     }
 
     @Override
@@ -13,6 +15,6 @@ public class Candy extends SnacksAndBeveragesDecorator{
 
     @Override
     public double cost() {
-        return 40+ ticket.cost();
+        return cost+ ticket.cost();
     }
 }

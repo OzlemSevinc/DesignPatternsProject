@@ -1,9 +1,11 @@
 public class Popcorn extends SnacksAndBeveragesDecorator{
+    double cost;
 
     Ticket ticket;
 
-    public Popcorn(Ticket ticket){
+    public Popcorn(Ticket ticket,double cost){
         this.ticket = ticket;
+        this.cost = cost;
     }
 
     @Override
@@ -13,6 +15,6 @@ public class Popcorn extends SnacksAndBeveragesDecorator{
 
     @Override
     public double cost() {
-        return 80+ ticket.cost();
+        return cost+ ticket.cost();
     }
 }
