@@ -6,11 +6,11 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
-        String baseFileName = args[0];
+      //  String baseFileName = args[0];
         // java Main C:\Users\dell\IdeaProjects\DesignPatternsProject\text.txt
 //text.txt
-        File file = new File(baseFileName);
-       // File file = new File("text.txt");
+       // File file = new File(baseFileName);
+        File file = new File("text.txt");
 
         Scanner sc = new Scanner(System.in);
         //Users: 1 'means' Admin, 2 'means' user
@@ -52,12 +52,12 @@ public class Main {
         }
         scanner.close();
 
-        System.out.println("Are you registered on the site?");
-        String response = sc.nextLine();
+      //  System.out.println("Are you registered on the site?");
+     //   String response = sc.nextLine();
 
 
 
-        if(response.toUpperCase().equals("YES")) {
+      //  if(response.toUpperCase().equals("YES")) {
             //Antalya-Alanya CompanyA 10:30 Mucize
             System.out.println("Please enter your email?");
             String email = sc.nextLine();
@@ -94,7 +94,7 @@ public class Main {
             }
 
 
-        }
+        //}
         /*
         else {
             System.out.println("Which city do you want to choose");
