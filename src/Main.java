@@ -6,11 +6,11 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
-      //  String baseFileName = args[0];
-        // java Main C:\Users\dell\IdeaProjects\DesignPatternsProject\text.txt
+         String baseFileName = args[0];
+        // java Main https://github.com/OzlemSevinc/DesignPatternsProject.git
 //text.txt
-       // File file = new File(baseFileName);
-        File file = new File("text.txt");
+        File file = new File(baseFileName);
+        //File file = new File("text.txt");
 
         Scanner sc = new Scanner(System.in);
         //Users: 1 'means' Admin, 2 'means' user
@@ -19,21 +19,14 @@ public class Main {
         threeElementMap.add("1 asl");
         threeElementMap.add("2 ozl Antalya");
 
-        //ArrayList<String>
 
-        // Değer ekleme
-        //threeElementMap.put(1, "2"); //asl@gmail.com
-        //threeElementMap.put(2, "1 Antalya");  //ozl@gmail.com
 
        //javac Main.java
         //java Main
 
 
 
-        /*
 
-        - TODO çift terminal dene
-         */
         String city = "";
         int number = 1;
         ArrayList<String> locCom = new ArrayList<>();
@@ -52,12 +45,7 @@ public class Main {
         }
         scanner.close();
 
-      //  System.out.println("Are you registered on the site?");
-     //   String response = sc.nextLine();
 
-
-
-      //  if(response.toUpperCase().equals("YES")) {
             //Antalya-Alanya CompanyA 10:30 Mucize
             System.out.println("Please enter your email?");
             String email = sc.nextLine();
@@ -69,45 +57,37 @@ public class Main {
             if(!usersCity.equals("Admin")){
                 ConcreteMovieSubject movie = new ConcreteMovieSubject(false);
 
-                CreatingMenu(sc,locCom,ticketCosts,time,companysMovieNames,number,usersCity,movie);
+                CreatingMenu(sc,locCom,ticketCosts,time,companysMovieNames,number,usersCity,movie,baseFileName);
             }
             else {
-                // Istanbul-Kadıkoy CompanyB 13:00 Barbie
-                System.out.println("Please write the new movie information.");
-                String data = sc.nextLine();
+                // Antalya-Alanya CompanyA 13:00 Barbie
+                AddingMovie(sc,baseFileName);
 
-                String newMovie = FindingCity(data);
-                AddingLineToTextFile("text.txt",data);
-                ConcreteMovieSubject movie = new ConcreteMovieSubject(true);
-
-
-                if(data.contains("Istanbul") && data.contains("CompanyA")){
-                    IstanbulKadikoyCompanyA d1 = new IstanbulKadikoyCompanyA("",0,movie);
-                }else if (data.contains("Istanbul") && data.contains("CompanyB")){
-                    IstanbulKadikoyCompanyB b1 = new IstanbulKadikoyCompanyB("",0,movie);
-                }
-                else if (data.contains("Antalya") && data.contains("CompanyA")) {
-                    AntalyaAlanyaCompanyA a1 = new AntalyaAlanyaCompanyA("",0, movie);
-                }
                 //Hangi şehre eklenecekse o şehrin observar'a eklenmesi gerek
                 //CreatingAdminPart();
             }
 
 
-        //}
-        /*
-        else {
-            System.out.println("Which city do you want to choose");
-            System.out.println("1 - Antalya");
-            System.out.println("2 - Istanbul");
-            System.out.println("3 - Eskisehir");
-            System.out.println("If you want to exit please enter 0");
-            int choice = sc.nextInt();
-            CreatingMenuWhoIsntMember(sc,locCom,ticketCosts,time,companysMovieNames,number);
 
+    }
+
+    public static void AddingMovie(Scanner sc, String baseFileName) {
+        System.out.println("Please write the new movie information.");
+        String data = sc.nextLine();
+
+        String newMovie = FindingCity(data);
+        AddingLineToTextFile(baseFileName,data);
+        ConcreteMovieSubject movie = new ConcreteMovieSubject(true);
+
+
+        if(data.contains("Istanbul") && data.contains("CompanyA")){
+            IstanbulKadikoyCompanyA d1 = new IstanbulKadikoyCompanyA("",0,movie);
+        }else if (data.contains("Istanbul") && data.contains("CompanyB")){
+            IstanbulKadikoyCompanyB b1 = new IstanbulKadikoyCompanyB("",0,movie);
         }
-
-         */
+        else if (data.contains("Antalya") && data.contains("CompanyA")) {
+            AntalyaAlanyaCompanyA a1 = new AntalyaAlanyaCompanyA("",0, movie);
+        }
     }
 
     public static String FindingCity(String data) {
@@ -156,56 +136,53 @@ public class Main {
             }
 
         }
-        //Collection<String> values = txt.get(2);
-/*
-        for (String value : values) {
-            if (value.contains(email)) {
-                if (value.contains("Istanbul")) {
-                    return "Istanbul";
-                } else if (value.contains("Antalya")) {
-                    return "Antalya";
-                }
 
-            }
-        }
-        */
 
 
         return "Admin";
     }
 
-    private static void CreatingMenuWhoIsntMember(Scanner sc, ArrayList<String> locCom, ArrayList<Ticket> ticketCosts, ArrayList<String> time, ArrayList<String> companysMovieNames, int number) {
 
-    }
-
-    public static void CreatingMenu(Scanner sc, ArrayList<String> locCom, ArrayList<Ticket> ticketCosts, ArrayList<String> time, ArrayList<String> companysMovieNames, int number, String city, ConcreteMovieSubject movie) {
+    public static void CreatingMenu(Scanner sc, ArrayList<String> locCom, ArrayList<Ticket> ticketCosts, ArrayList<String> time, ArrayList<String> companysMovieNames, int number, String city, ConcreteMovieSubject movie, String baseFileName) {
 
 
        // int choice = sc.nextInt();
         int counter = 0;
+        ArrayList<String> companysMovieNames_menu = new ArrayList<>();
+        ArrayList<String> time_menu = new ArrayList<>();
+
+
+
+
+
 
 
         while (true) {
-            movie.notifyObservers();
+            Boolean result = movie.notifyObservers( locCom, ticketCosts, time, companysMovieNames, number, city, movie,  baseFileName,companysMovieNames_menu,time_menu);
+            if (!result) {
 
-            for (int i = 0; i < locCom.size(); i++) {
+                for (int i = 0; i < locCom.size(); i++) {
 
-                CompanyStore value = FindCompany(locCom.get(i));
-                if (locCom.get(i).contains(city)) {
-                    Ticket ticketAntalya = value.orderTicket(locCom.get(i), 0,movie);
-                    ticketCosts.add(ticketAntalya);
-                    number = TicketList(number, ticketAntalya, time.get(i), companysMovieNames.get(i));
+                    CompanyStore value = FindCompany(locCom.get(i));
+                    if (locCom.get(i).contains(city)) {
+                        Ticket ticketAntalya = value.orderTicket(locCom.get(i), 0, movie);
+                        ticketCosts.add(ticketAntalya);
+                        companysMovieNames_menu.add(companysMovieNames.get(i));
+                        time_menu.add(time.get(i));
+                        number = TicketList(number, ticketAntalya, time.get(i), companysMovieNames.get(i));
 
 
-
+                    }
                 }
             }
 
 
+
+
             System.out.println("Please enter your choice If you want to exit please enter 0");
-            movie.notifyObservers();
+
             int ticketChoice = sc.nextInt();
-            movie.notifyObservers();
+
             if(ticketChoice == 0){
                 break;
             }
@@ -238,13 +215,13 @@ public class Main {
                 }
             }
 
-            System.out.println("Ticket : " + companysMovieNames.get(ticketChoice - 1) + " " + ticketCosts.get(ticketChoice - 1).getDescription() + " " + "cost= " + ticketCosts.get(ticketChoice - 1).cost()
-                    + " at: " + time.get(ticketChoice - 1));
+            System.out.println("Ticket : " + companysMovieNames_menu.get(ticketChoice - 1) + " " + ticketCosts.get(ticketChoice - 1).getDescription() + " " + "cost= " + ticketCosts.get(ticketChoice - 1).cost()
+                    + " at: " + time_menu.get(ticketChoice - 1));
 
             number = 1;
 
 
-            //ticketCosts.clear();
+
         }
 
 
@@ -308,7 +285,7 @@ public class Main {
 
 
 
-    private static CompanyStore FindCompany(String s) {
+    public static CompanyStore FindCompany(String s) {
         if (s.contains("CompanyA")){
             return new CompanyA();
 
@@ -322,7 +299,7 @@ public class Main {
         }
     }
 
-    private static int TicketList(int number, Ticket ticketCity, String time, String movieName) {
+    public static int TicketList(int number, Ticket ticketCity, String time, String movieName) {
 
         System.out.println(number + "- " + movieName + " " + ticketCity.getDescription() + " " + "cost= " + ticketCity.cost() + " at: " + time);
         number = number +1;
