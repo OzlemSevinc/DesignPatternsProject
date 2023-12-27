@@ -36,11 +36,18 @@ public class ConcreteMovieSubject implements MovieSubject {
             }
 
             reader.close();
+          //  List<MovieObserver> observersCopy = new ArrayList<>(observers);
             if (satirSayisi != locCom.size()){
                 System.out.println("New movie added.");
-                for (MovieObserver observer : observers) {
-                    observer.update( locCom, ticketCosts,  time,  companysMovieNames,  number, city,  movie,  fileName,companysMovieNames_menu,time_menu);
-                }
+                locCom.clear();
+                time_menu.clear();
+                companysMovieNames_menu.clear();
+                time_menu.clear();
+                companysMovieNames.clear();
+                time.clear();
+               // for (MovieObserver observer : observersCopy) {
+                    this.observers.get(0).update( locCom, ticketCosts,  time_menu,  companysMovieNames,  number, city,  movie,  fileName,companysMovieNames_menu,time_menu);
+               // }
                 return true;
 
             }

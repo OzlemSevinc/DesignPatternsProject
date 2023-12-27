@@ -5,6 +5,14 @@ import java.util.*;
 
 public class Main {
 
+
+    public static ArrayList<Ticket> ticketCosts = new ArrayList<>();
+    public static ArrayList<String> companysMovieNames_menu = new ArrayList<>();
+    public static ArrayList<String> time_menu = new ArrayList<>();
+    public static ArrayList<String> locCom = new ArrayList<>();
+    public static ArrayList<String> time = new ArrayList<>();
+    public static ArrayList<String> companysMovieNames = new ArrayList<>();
+    public static Set<String> movieNames = new HashSet<>();
     public static void main(String[] args) throws FileNotFoundException {
          String baseFileName = args[0];
         // java Main https://github.com/OzlemSevinc/DesignPatternsProject.git
@@ -29,11 +37,8 @@ public class Main {
 
         String city = "";
         int number = 1;
-        ArrayList<String> locCom = new ArrayList<>();
-        ArrayList<String> time = new ArrayList<>();
-        ArrayList<String> companysMovieNames = new ArrayList<>();
-        Set<String> movieNames = new HashSet<>();
-        ArrayList<Ticket> ticketCosts = new ArrayList<>();
+
+
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
             String[] arrOfStr = scanner.nextLine().split(" ");
@@ -57,14 +62,15 @@ public class Main {
             if(!usersCity.equals("Admin")){
                 ConcreteMovieSubject movie = new ConcreteMovieSubject(false);
 
-                CreatingMenu(sc,locCom,ticketCosts,time,companysMovieNames,number,usersCity,movie,baseFileName);
+                CreatingMenu(sc,locCom,ticketCosts,time,companysMovieNames,number,usersCity,movie,
+                        companysMovieNames_menu,time_menu,baseFileName);
             }
             else {
                 // Antalya-Alanya CompanyA 13:00 Barbie
                 AddingMovie(sc,baseFileName);
 
-                //Hangi şehre eklenecekse o şehrin observar'a eklenmesi gerek
-                //CreatingAdminPart();
+
+
             }
 
 
@@ -143,23 +149,13 @@ public class Main {
     }
 
 
-    public static void CreatingMenu(Scanner sc, ArrayList<String> locCom, ArrayList<Ticket> ticketCosts, ArrayList<String> time, ArrayList<String> companysMovieNames, int number, String city, ConcreteMovieSubject movie, String baseFileName) {
-
-
-       // int choice = sc.nextInt();
-        int counter = 0;
-        ArrayList<String> companysMovieNames_menu = new ArrayList<>();
-        ArrayList<String> time_menu = new ArrayList<>();
-
-
-
-
-
+    public static void CreatingMenu(Scanner sc, ArrayList<String> locCom, ArrayList<Ticket> ticketCosts, ArrayList<String> time, ArrayList<String> companysMovieNames, int number, String city, ConcreteMovieSubject movie, ArrayList<String> companysMovieNames_menu, ArrayList<String> time_menu, String baseFileName) {
 
 
         while (true) {
             Boolean result = movie.notifyObservers( locCom, ticketCosts, time, companysMovieNames, number, city, movie,  baseFileName,companysMovieNames_menu,time_menu);
             if (!result) {
+                System.out.println(locCom.size()+ " ");
 
                 for (int i = 0; i < locCom.size(); i++) {
 
@@ -172,6 +168,7 @@ public class Main {
                         number = TicketList(number, ticketAntalya, time.get(i), companysMovieNames.get(i));
 
 
+
                     }
                 }
             }
@@ -179,7 +176,9 @@ public class Main {
 
 
 
+
             System.out.println("Please enter your choice If you want to exit please enter 0");
+
 
             int ticketChoice = sc.nextInt();
 
@@ -214,6 +213,7 @@ public class Main {
 
                 }
             }
+
 
             System.out.println("Ticket : " + companysMovieNames_menu.get(ticketChoice - 1) + " " + ticketCosts.get(ticketChoice - 1).getDescription() + " " + "cost= " + ticketCosts.get(ticketChoice - 1).cost()
                     + " at: " + time_menu.get(ticketChoice - 1));

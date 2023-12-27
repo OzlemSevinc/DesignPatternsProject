@@ -2,7 +2,5 @@ Antalya-Alanya CompanyA 10:30 Mucize
 Istanbul-Kadıkoy CompanyA 12:00 Mucize
 Antalya-Alanya CompanyA 14:00 Avengers
 Istanbul-Kadıkoy CompanyB 12:00 Mucize
-Antalya-Alanya CompanyA 09:30 Avengers
 Antalya-Alanya CompanyA 13:00 Barbie
 Antalya-Alanya CompanyA 13:00 Inception
-Antalya-Alanya CompanyA 11:30 Avatar

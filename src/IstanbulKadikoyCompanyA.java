@@ -31,10 +31,10 @@ public class IstanbulKadikoyCompanyA extends Ticket implements MovieObserver{
 
     @Override
     public void update(ArrayList<String> locCom, ArrayList<Ticket> ticketCosts, ArrayList<String> time, ArrayList<String> companysMovieNames, int number, String city, ConcreteMovieSubject movie, String fileName, ArrayList<String> companysMovieNames_menu, ArrayList<String> time_menu) throws FileNotFoundException {
-        companysMovieNames_menu.clear();
-        time_menu.clear();
+
         if(counter == 0){
-            createMenu(locCom,time,companysMovieNames,fileName);
+            createMenu(locCom,time,companysMovieNames,fileName,companysMovieNames_menu,time_menu);
+
             for (int i = 0; i < locCom.size(); i++) {
 
                 CompanyStore value = Main.FindCompany(locCom.get(i));
@@ -42,6 +42,8 @@ public class IstanbulKadikoyCompanyA extends Ticket implements MovieObserver{
                     Ticket ticketAntalya = value.orderTicket(locCom.get(i), 0, movie);
                     ticketCosts.add(ticketAntalya);
                     number = Main.TicketList(number, ticketAntalya, time.get(i), companysMovieNames.get(i));
+                    companysMovieNames_menu.add(companysMovieNames.get(i));
+                    time_menu.add(time.get(i));
 
 
                 }
@@ -53,12 +55,14 @@ public class IstanbulKadikoyCompanyA extends Ticket implements MovieObserver{
 
     }
 
-    private void createMenu(ArrayList<String> locCom,ArrayList<String> time, ArrayList<String> companysMovieNames,  String fileName) throws FileNotFoundException {
+    private void createMenu(ArrayList<String> locCom, ArrayList<String> time, ArrayList<String> companysMovieNames, String fileName, ArrayList<String> companysMovieNames_menu, ArrayList<String> time_menu) throws FileNotFoundException {
 
         File file = new File(fileName);
         Scanner scanner = new Scanner(file);
         locCom.clear();
         time.clear();
+        companysMovieNames_menu.clear();
+        time_menu.clear();
         companysMovieNames.clear();
         String city = "";
         while (scanner.hasNextLine()) {
