@@ -1,10 +1,7 @@
 import java.io.*;
 import java.util.*;
-//import com.google.common.collect.ArrayListMultimap;
-//import com.google.common.collect.Multimap;
 
 public class Main {
-
 
     public static ArrayList<Ticket> ticketCosts = new ArrayList<>();
     public static ArrayList<String> companysMovieNames_menu = new ArrayList<>();
@@ -15,30 +12,22 @@ public class Main {
     public static Set<String> movieNames = new HashSet<>();
     public static void main(String[] args) throws FileNotFoundException {
          String baseFileName = args[0];
-        // java Main https://github.com/OzlemSevinc/DesignPatternsProject.git
-//text.txt
+
         File file = new File(baseFileName);
         //File file = new File("text.txt");
 
         Scanner sc = new Scanner(System.in);
         //Users: 1 'means' Admin, 2 'means' user
-
+        //Add 2 users as admin and normal user
         ArrayList<String> threeElementMap = new ArrayList<>();
-        threeElementMap.add("1 asl");
+        threeElementMap.add("1 admin");
         threeElementMap.add("2 ozl Antalya");
-
-
-
-       //javac Main.java
-        //java Main
-
-
 
 
         String city = "";
         int number = 1;
 
-
+        //Read data from file
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
             String[] arrOfStr = scanner.nextLine().split(" ");
@@ -51,7 +40,7 @@ public class Main {
         scanner.close();
 
 
-            //Antalya-Alanya CompanyA 10:30 Mucize
+
             System.out.println("Please enter your email?");
             String email = sc.nextLine();
             String usersCity = usersCity(threeElementMap,email);
@@ -59,6 +48,7 @@ public class Main {
             System.out.println("Please enter your password?");
             String password = sc.nextLine();
 
+            //User type control
             if(!usersCity.equals("Admin")){
                 ConcreteMovieSubject movie = new ConcreteMovieSubject(false);
 
@@ -66,7 +56,7 @@ public class Main {
                         companysMovieNames_menu,time_menu,baseFileName);
             }
             else {
-                // Antalya-Alanya CompanyA 13:00 Barbie
+
                 AddingMovie(sc,baseFileName);
 
 
@@ -76,12 +66,12 @@ public class Main {
 
 
     }
-
+    //Method for admin to add new movie
     public static void AddingMovie(Scanner sc, String baseFileName) {
         System.out.println("Please write the new movie information.");
         String data = sc.nextLine();
 
-        String newMovie = FindingCity(data);
+
         AddingLineToTextFile(baseFileName,data);
         ConcreteMovieSubject movie = new ConcreteMovieSubject(true);
 
@@ -96,19 +86,7 @@ public class Main {
         }
     }
 
-    public static String FindingCity(String data) {
-        if(data.contains("Istanbul")){
-            return "Istanbul";
-
-        } else if (data.contains("Antalya")) {
-            return "Antalya";
-
-        }
-
-        return null;
-
-    }
-
+    //Add new movie to text file
     public static void AddingLineToTextFile(String filePath, String data) {
 
 
@@ -130,7 +108,7 @@ public class Main {
             System.out.println("Error: " + e.getMessage());
         }
     }
-
+    //Checks user's city
     public static String usersCity(ArrayList<String> txt, String email) {
 
         for (int i = 0; i < txt.size(); i++) {
@@ -143,12 +121,10 @@ public class Main {
 
         }
 
-
-
         return "Admin";
     }
 
-
+    //Creates the menu for user
     public static void CreatingMenu(Scanner sc, ArrayList<String> locCom, ArrayList<Ticket> ticketCosts, ArrayList<String> time, ArrayList<String> companysMovieNames, int number, String city, ConcreteMovieSubject movie, ArrayList<String> companysMovieNames_menu, ArrayList<String> time_menu, String baseFileName) {
 
 
@@ -177,7 +153,7 @@ public class Main {
 
 
 
-            System.out.println("Please enter your choice If you want to exit please enter 0");
+            System.out.println("Please enter your movie choice. If you want to exit please enter 0.");
 
 
             int ticketChoice = sc.nextInt();
@@ -185,14 +161,14 @@ public class Main {
             if(ticketChoice == 0){
                 break;
             }
-            System.out.println("Would you like to beverage?");
+            System.out.println("Would you like to add snacks or beverages?");
             int beverageChoice = -1;
 
             while (true) {
                 System.out.println("1 - Popcorn");
                 System.out.println("2 - Soda");
                 System.out.println("3 - Candy");
-                System.out.println("Please enter a choice? Or If you want to exit please enter 0");
+                System.out.println("Please enter your choice. If you want to exit please enter 0");
                 beverageChoice = sc.nextInt();
                 if (beverageChoice == 0)
                     break;
@@ -227,59 +203,51 @@ public class Main {
 
 
     }
+    //Methods for calculating multiple snacks or beverages
+    private static Ticket BuyingCandy(Ticket ticket, int amount) {
+        if(ticket.getDescription().contains("CompanyA")) {
 
-    public static int printingMovieList(CompanyStore value, ArrayList<Ticket> ticketCosts, String locCom, ConcreteMovieSubject movie,
-                                        String time, String companysMovieNames, int number) {
-        Ticket ticketAntalya = value.orderTicket(locCom, 0,movie);
-        ticketCosts.add(ticketAntalya);
-        number = TicketList(number, ticketAntalya, time, companysMovieNames);
-        return number;
+            for (int i = 0; i < amount; i++) {
+                ticket = new Candy(ticket,10);
+            }
+        }
+        else if (ticket.getDescription().contains("CompanyB")){
+            for (int i = 0; i < amount; i++) {
+                ticket = new Candy(ticket,15);
+            }
+        }
+        return ticket;
     }
 
-    private static Ticket BuyingCandy(Ticket aFloat, int amount) {
-        if(aFloat.getDescription().contains("CompanyA")) {
+    private static Ticket BuyingSoda(Ticket ticket, int amount) {
+        if(ticket.getDescription().contains("CompanyA")) {
 
             for (int i = 0; i < amount; i++) {
-                aFloat = new Candy(aFloat,10);
+                ticket = new Soda(ticket,20);
             }
         }
-        else if (aFloat.getDescription().contains("CompanyB")){
-            for (int i = 0; i < amount; i++) {
-                aFloat = new Candy(aFloat,15);
-            }
+        else if (ticket.getDescription().contains("CompanyB")){
+            ticket = new Soda(ticket,15);
         }
-        return aFloat;
+
+        return ticket;
     }
 
-    private static Ticket BuyingSoda(Ticket aFloat, int amount) {
-        if(aFloat.getDescription().contains("CompanyA")) {
-
+    private static Ticket BuyingPopcorn(Ticket ticket, int amount) {
+        if(ticket.getDescription().contains("CompanyA")){
             for (int i = 0; i < amount; i++) {
-                aFloat = new Soda(aFloat,20);
+                ticket = new Popcorn(ticket,50);
             }
         }
-        else if (aFloat.getDescription().contains("CompanyB")){
-            aFloat = new Soda(aFloat,15);
-        }
-
-        return aFloat;
-    }
-
-    private static Ticket BuyingPopcorn(Ticket aFloat, int amount) {
-        if(aFloat.getDescription().contains("CompanyA")){
+        else if (ticket.getDescription().contains("CompanyB")){
             for (int i = 0; i < amount; i++) {
-                aFloat = new Popcorn(aFloat,50);
-            }
-        }
-        else if (aFloat.getDescription().contains("CompanyB")){
-            for (int i = 0; i < amount; i++) {
-                aFloat = new Popcorn(aFloat,60);
+                ticket = new Popcorn(ticket,60);
             }
 
         }
 
 
-        return aFloat;
+        return ticket;
     }
 
 
@@ -298,7 +266,7 @@ public class Main {
 
         }
     }
-
+    //Prints ticket information
     public static int TicketList(int number, Ticket ticketCity, String time, String movieName) {
 
         System.out.println(number + "- " + movieName + " " + ticketCity.getDescription() + " " + "cost= " + ticketCity.cost() + " at: " + time);

@@ -29,6 +29,7 @@ public class IstanbulKadikoyCompanyA extends Ticket implements MovieObserver{
         return cost;
     }
 
+    //Updates movie list
     @Override
     public void update(ArrayList<String> locCom, ArrayList<Ticket> ticketCosts, ArrayList<String> time, ArrayList<String> companysMovieNames, int number, String city, ConcreteMovieSubject movie, String fileName, ArrayList<String> companysMovieNames_menu, ArrayList<String> time_menu) throws FileNotFoundException {
 
@@ -55,6 +56,7 @@ public class IstanbulKadikoyCompanyA extends Ticket implements MovieObserver{
 
     }
 
+    //Print updated menu
     private void createMenu(ArrayList<String> locCom, ArrayList<String> time, ArrayList<String> companysMovieNames, String fileName, ArrayList<String> companysMovieNames_menu, ArrayList<String> time_menu) throws FileNotFoundException {
 
         File file = new File(fileName);
