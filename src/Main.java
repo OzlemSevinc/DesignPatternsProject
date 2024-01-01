@@ -161,6 +161,7 @@ public class Main {
             if(ticketChoice == 0){
                 break;
             }
+            Ticket lastTicket = ticketCosts.get(ticketChoice-1);
             System.out.println("Would you like to add snacks or beverages?");
             int beverageChoice = -1;
 
@@ -176,24 +177,27 @@ public class Main {
                 int amount = sc.nextInt();
 
                 if (beverageChoice == 1) {
-                    ticketCosts.add(ticketChoice - 1, BuyingPopcorn(ticketCosts.get(ticketChoice - 1), amount));
+                    lastTicket = BuyingPopcorn(lastTicket, amount);
+
 
 
                 } else if (beverageChoice == 2) {
-                    ticketCosts.add(ticketChoice - 1, BuyingSoda(ticketCosts.get(ticketChoice), amount));
+                    lastTicket = BuyingSoda(lastTicket, amount);
+
 
 
                 } else if (beverageChoice == 3) {
-                    ticketCosts.add(ticketChoice - 1, BuyingCandy(ticketCosts.get(ticketChoice), amount));
+                    lastTicket = BuyingCandy(lastTicket, amount);
+
 
 
                 }
             }
 
 
-            System.out.println("Ticket : " + companysMovieNames_menu.get(ticketChoice - 1) + " " + ticketCosts.get(ticketChoice - 1).getDescription() + " " + "cost= " + ticketCosts.get(ticketChoice - 1).cost()
+            System.out.println("Ticket : " + companysMovieNames_menu.get(ticketChoice - 1) + " " + lastTicket.getDescription() + " " + "cost= " + lastTicket.cost()
                     + " at: " + time_menu.get(ticketChoice - 1));
-
+            ticketCosts.clear();
             number = 1;
 
 

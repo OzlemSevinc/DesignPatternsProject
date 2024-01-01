@@ -46,7 +46,7 @@ public class ConcreteMovieSubject implements MovieSubject {
                 companysMovieNames.clear();
                 time.clear();
                // for (MovieObserver observer : observersCopy) {
-                    this.observers.get(0).update( locCom, ticketCosts,  time_menu,  companysMovieNames,  number, city,  movie,  fileName,companysMovieNames_menu,time_menu);
+                    this.observers.get(0).update( locCom, ticketCosts,  time,  companysMovieNames,  number, city,  movie,  fileName,companysMovieNames_menu,time_menu);
                // }
                 return true;
 
