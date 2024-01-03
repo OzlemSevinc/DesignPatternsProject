@@ -29,15 +29,14 @@ public class ConcreteMovieSubject implements MovieSubject {
     public Boolean notifyObservers(ArrayList<String> locCom, ArrayList<Ticket> ticketCosts, ArrayList<String> time, ArrayList<String> companysMovieNames, int number, String city, ConcreteMovieSubject movie, String fileName, ArrayList<String> companysMovieNames_menu, ArrayList<String> time_menu) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
-            int satirSayisi = 0;
+            int satirSayisi = 0;String line; String lastLine = "";
 
-            while (reader.readLine() != null) {
-                satirSayisi++;
+            while ((line = reader.readLine()) != null) {
+                satirSayisi++;lastLine = line;
             }
 
             reader.close();
-          //  List<MovieObserver> observersCopy = new ArrayList<>(observers);
-            if (satirSayisi != locCom.size()){
+            if (satirSayisi != locCom.size() && lastLine.contains(city)){
                 System.out.println("New movie added.");
                 locCom.clear();
                 time_menu.clear();
@@ -45,9 +44,7 @@ public class ConcreteMovieSubject implements MovieSubject {
                 time_menu.clear();
                 companysMovieNames.clear();
                 time.clear();
-               // for (MovieObserver observer : observersCopy) {
                     this.observers.get(0).update( locCom, ticketCosts,  time,  companysMovieNames,  number, city,  movie,  fileName,companysMovieNames_menu,time_menu);
-               // }
                 return true;
 
             }

@@ -22,6 +22,7 @@ public class Main {
         ArrayList<String> threeElementMap = new ArrayList<>();
         threeElementMap.add("1 admin");
         threeElementMap.add("2 ozl Antalya");
+        threeElementMap.add("2 mlk Istanbul");
 
 
         String city = "";
